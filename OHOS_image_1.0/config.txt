@@ -1,0 +1,23 @@
+#修改kernel7.img镜像加载地址到0x0，默认0x8000，pi4默认0x80000
+#kernel_old=1
+#please dont trash the first few hundred bytes of memory with ATAG nor device tree information.
+#disable_commandline_tags=1
+
+#kernel_address=0x10000000
+
+#kernel=uartx01.bin
+kernel=u-boot.bin
+#kernel=OHOS_Image.bin
+#kernel=demo.bin
+#kernel=infloop.bin
+#kernel_address=Ox00080000
+#arm_64bit=1
+#enable_uart=1
+#uart_2ndstage=1
+#enable_gic=1
+
+
+enable_jtag_gpio=1
+gpio=22-27=a4
+#init_uart_clock=48000000
+#init_uart_baud=115200

@@ -1,23 +1,18 @@
 # harmony-raspberry
 
 #### 介绍
-移植鸿蒙Harmony到树莓派
-
-#### 软件架构
-软件架构说明
+本项目将鸿蒙Harmony1.0移植到树莓派raspberry Pi2B
 
 
-#### 安装教程
+#### 前期准备
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1.[环境搭建](doc/环境搭建.md)
 
-#### 使用说明
+2.[源码下载](doc/源码下载.md)
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+#### 代码移植
+
+1.[增加新单板](doc/增加新单板.md)
 
 #### 参与贡献
 

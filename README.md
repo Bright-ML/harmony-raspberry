@@ -6,13 +6,13 @@
 
 #### 前期准备
 
-1.[环境搭建](doc/环境搭建.md)
+1.[环境搭建](https://gitee.com/liangzili/harmony-raspberry/blob/master/doc/1.%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA.md)
 
-2.[源码下载](doc/源码下载.md)
+2.[源码下载](https://gitee.com/liangzili/harmony-raspberry/blob/master/doc/源码下载.md)
 
 #### 代码移植
 
-1.[增加新单板](doc/增加新单板.md)
+1.[增加新单板](https://gitee.com/liangzili/harmony-raspberry/blob/master/doc/增加新单板.md)
 
 #### 参与贡献
 

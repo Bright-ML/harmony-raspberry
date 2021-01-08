@@ -6,13 +6,13 @@
 
 #### 1、前期准备
 
-1.1 [环境搭建](https://gitee.com/liangzili/harmony-raspberry/blob/master/doc/1.%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA.md)
+1.1 [环境搭建](https://gitee.com/liangzili/harmony-raspberry/blob/master/doc/1.1%20%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA.md)
 
-1.2 [源码下载](https://gitee.com/liangzili/harmony-raspberry/blob/master/doc/2.%E6%BA%90%E7%A0%81%E4%B8%8B%E8%BD%BD.md)
+1.2 [源码下载](https://gitee.com/liangzili/harmony-raspberry/blob/master/doc/1.2%20%E6%BA%90%E7%A0%81%E4%B8%8B%E8%BD%BD.md)
 
 #### 2、代码移植
 
-2.1 [增加新单板](https://gitee.com/liangzili/harmony-raspberry/blob/master/doc/%E5%A2%9E%E5%8A%A0%E6%96%B0%E5%8D%95%E6%9D%BF.md)
+2.1 [增加新单板](https://gitee.com/liangzili/harmony-raspberry/blob/master/doc/2.1%20%E5%A2%9E%E5%8A%A0%E6%96%B0%E5%8D%95%E6%9D%BF.md)
 
 #### 参与贡献
 

@@ -1,0 +1,59 @@
+
+
+static int sector_size = 512;
+static int ramdisk_base =  DDR_RAMFS_VBASE;
+static int ramdisk_size =  DDR_RAMFS_SIZE;
+
+
+static int	ramdisk_open(FAR struct inode *inode)
+{
+	return 0;
+}
+
+static int	ramdisk_close(FAR struct inode *inode)
+{
+	return 0;
+}
+
+ssize_t ramdisk_read(FAR struct inode *inode, FAR unsigned char *buffer,
+		  unsigned long long start_sector, unsigned int nsectors)
+{
+	const char *addr = (const char *)(ramdisk_base + start_sector * sector_size);
+	memcpy(buffer, addr, nsectors * sector_size);
+	return nsectors;
+}
+		  
+ssize_t ramdisk_write(FAR struct inode *inode, FAR const unsigned char *buffer,
+		  unsigned long long start_sector, unsigned int nsectors)
+{
+	char *addr = (const char *)(ramdisk_base + start_sector * sector_size;)
+	memcpy(addr, buffer, nsectors * sector_size);
+	return nsectors;
+}
+
+		  
+static int 	ramdisk_geometry(FAR struct inode *inode, FAR struct geometry *geometry)
+{
+	geometry->geo_available    = true;	 /* true: The device is available */
+	geometry->geo_writeenabled = true; /* true: It is okay to write to this device */
+	geometry->geo_nsectors     = ramdisk_size / sector_size;	 /* Number of sectors on the device */
+	geometry->geo_sectorsize   = sector_size;	 /* Size of one sector */
+	return 0;
+}
+
+static int 	ramdisk_ioctl(FAR struct inode *inode, int cmd, unsigned long arg)
+{
+	return 0;
+}
+
+static int 	ramdisk_unlink(FAR struct inode *inode)
+{
+	return 0;
+}
+
+
+struct block_operations g_ramdisk_opr = {
+};
+
+
+

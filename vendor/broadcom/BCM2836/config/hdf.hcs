@@ -1,0 +1,6 @@
+//#include "device_info/device_info.hcs"
+//#include "i2c/i2c_config.hcs"
+
+root {
+    module = "hisilicon,hi35xx_chip";
+}

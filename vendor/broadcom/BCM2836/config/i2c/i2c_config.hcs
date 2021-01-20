@@ -1,0 +1,21 @@
+root {
+    platfrom {
+        i2c_config {
+            template i2c_controller {
+                bus = 0;
+                match_attr = "";
+                reg_pbase = 0x021A4000;
+                reg_size = 0xd1;
+                irq = 0;
+                freq = 400000;
+                clk = 50000000;
+            }
+
+            controller_0x021A4000 :: i2c_controller {
+                bus = 0;
+                match_attr = "nxp_imx6ull_i2c_0";
+            }
+
+        }
+    }
+}

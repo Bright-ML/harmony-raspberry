@@ -1,0 +1,122 @@
+/*
+ * Copyright (c) 2013-2019, Huawei Technologies Co., Ltd. All rights reserved.
+ * Copyright (c) 2020, Huawei Device Co., Ltd. All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice, this list of
+ *    conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright notice, this list
+ *    of conditions and the following disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
+ *
+ * 3. Neither the name of the copyright holder nor the names of its contributors may be used
+ *    to endorse or promote products derived from this software without specific prior written
+ *    permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+#include "errno.h"
+#include "fs/fs.h"
+#include "stdio.h"
+#include "stdlib.h"
+#include "spinor.h"
+#include "fs/fs.h"
+#include "inode/inode.h"
+
+static int sector_size = 512;
+static unsigned int ramdisk_start_addr = DDR_RAMFS_VBASE;
+static unsigned int ramdisk_size       = DDR_RAMFS_SIZE;
+
+static int ramdisk_open(FAR struct inode *inode_p)
+{
+    return 0;
+}
+
+static int ramdisk_close(FAR struct inode *inode_p)
+{
+    return 0;
+}
+
+static ssize_t ramdisk_read(FAR struct inode *inode_p, FAR unsigned char *buffer,
+                             unsigned long long start_sector, unsigned int nsectors)
+{
+	unsigned char * addr = (unsigned char *)(ramdisk_start_addr + sector_size * start_sector);
+	memcpy(buffer, addr, nsectors * sector_size);
+    return nsectors;
+}
+
+static ssize_t ramdisk_write(FAR struct inode *inode_p, FAR const unsigned char *buffer,
+                              unsigned long long start_sector, unsigned int nsectors)
+{
+	unsigned char * addr = (unsigned char *)(ramdisk_start_addr + sector_size * start_sector);
+	memcpy(addr, buffer, nsectors * sector_size);
+    return nsectors;
+}
+
+static int ramdisk_geometry(FAR struct inode *inode_p, FAR struct geometry *geometry_p)
+{
+	geometry_p->geo_available    = true;	 /* true: The device is available */
+	//bool   geo_mediachanged; /* true: The media has changed since last query */
+	geometry_p->geo_writeenabled = true; /* true: It is okay to write to this device */
+	geometry_p->geo_nsectors     = ramdisk_size / sector_size;	 /* Number of sectors on the device */
+	geometry_p->geo_sectorsize   = sector_size;	 /* Size of one sector */
+    return 0;
+}
+
+static int ramdisk_ioctl(FAR struct inode *inode_p, int cmd, unsigned long arg)
+{
+    return 0;
+}
+
+const struct block_operations g_dev_ramdisk_ops = {
+    .open       = ramdisk_open,
+    .close      = ramdisk_close,
+    .read       = ramdisk_read,
+    .write      = ramdisk_write,
+    .geometry   = ramdisk_geometry,
+    .ioctl      = ramdisk_ioctl,
+    .unlink     = NULL
+};
+
+
+extern INT32 los_alloc_diskid_byname(const CHAR *diskName);
+extern INT32 los_disk_init(const CHAR *diskName, const struct block_operations *bops,
+                    VOID *priv, INT32 diskID, VOID *info);
+
+int my_ramdisk_init(void)
+{
+#if 1	
+	char *node_name = "/dev/ramdisk";
+
+	INT32 diskId = los_alloc_diskid_byname(node_name);
+	if (diskId < 0) {
+		PRINT_ERR("Failed to alloc disk %s!\n", node_name);
+		return -1;
+	}
+	if (los_disk_init(node_name, &g_dev_ramdisk_ops, NULL, diskId, NULL) != ENOERR) {
+		PRINT_ERR("Failed to init my ramdisk disk!\n");
+		return -1;
+	}
+#else
+	int ret = register_blockdriver("/dev/ramdisk", &g_dev_ramdisk_ops, 0755, NULL);
+	if (ret)
+		PRINT_ERR("Failed to iregister_blockdriver!\n");
+#endif
+	return 0;
+}
+
+

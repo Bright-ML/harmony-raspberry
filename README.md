@@ -14,6 +14,8 @@
 
 2.1 [增加新单板](https://gitee.com/liangzili/harmony-raspberry/blob/master/doc/2.1%20%E5%A2%9E%E5%8A%A0%E6%96%B0%E5%8D%95%E6%9D%BF.md)
 
+2.2 [修改源码](https://gitee.com/liangzili/harmony-raspberry/blob/master/doc/2.2%20%E4%BF%AE%E6%94%B9%E6%BA%90%E7%A0%81.md)
+
 #### 参与贡献
 
 1.  Fork 本仓库

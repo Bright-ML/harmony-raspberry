@@ -3,6 +3,8 @@
 #### 介绍
 本项目将鸿蒙Harmony1.0移植到树莓派raspberry Pi2B
 
+树莓派raspberry Pi4B正在移植ing...
+
 
 #### 1、前期准备
 
